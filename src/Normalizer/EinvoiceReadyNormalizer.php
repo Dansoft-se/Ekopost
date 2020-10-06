@@ -54,7 +54,9 @@ class EinvoiceReadyNormalizer
         }
 
         $einvoiceReady->setSuccess($data['success']);
-        $einvoiceReady->setErrorMessage($data['error_message']);
+        if (array_key_exists('error_message', $data)) {
+            $einvoiceReady->setErrorMessage($data['error_message']);
+        }
 
 
         return $einvoiceReady;
