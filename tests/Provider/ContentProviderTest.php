@@ -19,7 +19,7 @@ class ContentProviderTest extends TestCase
      */
     public function it_creates_a_content_item()
     {
-        $contentProvider = new ContentProvider($this->createHttpClientMock($this->createJson()), 'foo');
+        $contentProvider = new ContentProvider($this->createHttpClientMock($this->createJson()), 'foo', false);
         $content = $contentProvider->create(new Campaign(), new Envelope(), new Content());
 
         $this->assertInstanceOf(Content::class, $content);

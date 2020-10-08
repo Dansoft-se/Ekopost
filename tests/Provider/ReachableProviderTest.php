@@ -17,7 +17,7 @@ class ReachableProviderTest extends TestCase
      */
     public function it_returns_einvoice_reachable_status()
     {
-        $reachableProvider = new ReachableProvider($this->createHttpClientMock($this->createJson()), 'foo');
+        $reachableProvider = new ReachableProvider($this->createHttpClientMock($this->createJson()), 'foo', false);
         $einvoiceReady = $reachableProvider->einvoiceReady(new EinvoiceReady());
 
         $this->assertInstanceOf(EinvoiceReady::class, $einvoiceReady);

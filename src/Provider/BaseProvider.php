@@ -23,13 +23,20 @@ abstract class BaseProvider implements ProviderInterface
     protected $apikey;
 
     /**
+     * @var bool
+     */
+    protected $sandbox;
+
+    /**
      * @param Client $client
      * @param string $apikey
+     * @param bool $sandbox
      */
-    public function __construct(Client $client, string $apikey)
+    public function __construct(Client $client, string $apikey, bool $sandbox)
     {
         $this->client = $client;
         $this->apikey = $apikey;
+        $this->sandbox = $sandbox;
     }
 
     /**
@@ -53,22 +60,12 @@ abstract class BaseProvider implements ProviderInterface
      *
      * @return array|null
      */
-    protected function post(string $path, array $data, \SplFileInfo $file = null): ?array
+    protected function post(string $path, array $data): ?array
     {
-        $options = [];
-        if ($data) {
-            $options[RequestOptions::JSON] = $data;
-        };
+        $options = [
+            RequestOptions::JSON => $data,
+        ];
 
-        if ($file) {
-            $options[RequestOptions::MULTIPART] = [
-                [
-                    'Content-type' => 'multipart/form-data',
-                    'name' => 'file',
-                    'contents' => fopen($file->getPathname(), 'r'),
-                ],
-            ];
-        }
         $response = $this->client->post(
             $this->getUrl($path),
             array_merge($options, $this->createOptions())
@@ -144,6 +141,10 @@ abstract class BaseProvider implements ProviderInterface
      */
     private function getUrl(string $path): string
     {
+        if ($this->sandbox) {
+            return Ekopost::API_SANDBOX_URL . $path;
+        }
+
         return Ekopost::API_URL . $path;
     }
 
@@ -152,13 +153,11 @@ abstract class BaseProvider implements ProviderInterface
      */
     protected function createOptions(): array
     {
-        $options = [
+        return [
             RequestOptions::HEADERS => [
                 'authorization' => 'api-key ' . $this->apikey,
                 'Content-Type' => 'application/json',
             ],
         ];
-
-        return $options;
     }
 }

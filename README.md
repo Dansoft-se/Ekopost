@@ -7,7 +7,7 @@ API wrapper for Ekopost
 
 ## Example
 ```php
-$ekopost = new \JGI\Ekopost\Ekopost(new \GuzzleHttp\Client(), $apiKey);
+$ekopost = new \JGI\Ekopost\Ekopost(new \GuzzleHttp\Client(), $apiKey, false);
 $campaign = new \JGI\Ekopost\Model\Campaign();
 
 $campaign = $ekopost->campaigns()->create($campaign);

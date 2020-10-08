@@ -10,7 +10,8 @@ use JGI\Ekopost\Provider\ReachableProvider;
 
 class Ekopost
 {
-    const API_URL = 'http://api.sandbox.ekopost.se/';
+    const API_SANDBOX_URL = 'http://api.sandbox.ekopost.se/';
+    const API_URL = 'http://api.ekopost.se/';
 
     /**
      * @var Client
@@ -23,13 +24,20 @@ class Ekopost
     private $apikey;
 
     /**
+     * @var bool
+     */
+    private $sandbox;
+
+    /**
      * @param Client $client
      * @param string $apikey
+     * @param bool $sandbox
      */
-    public function __construct(Client $client, string $apikey)
+    public function __construct(Client $client, string $apikey, bool $sandbox)
     {
         $this->client = $client;
         $this->apikey = $apikey;
+        $this->sandbox = $sandbox;
     }
 
     public function setClient(Client $client): void
@@ -42,7 +50,7 @@ class Ekopost
      */
     public function campaigns(): CampaignProvider
     {
-        return new CampaignProvider($this->client, $this->apikey);
+        return new CampaignProvider($this->client, $this->apikey, $this->sandbox);
     }
 
     /**
@@ -50,7 +58,7 @@ class Ekopost
      */
     public function envelopes(): EnvelopeProvider
     {
-        return new EnvelopeProvider($this->client, $this->apikey);
+        return new EnvelopeProvider($this->client, $this->apikey, $this->sandbox);
     }
 
     /**
@@ -58,7 +66,7 @@ class Ekopost
      */
     public function contents(): ContentProvider
     {
-        return new ContentProvider($this->client, $this->apikey);
+        return new ContentProvider($this->client, $this->apikey, $this->sandbox);
     }
 
     /**
@@ -66,6 +74,6 @@ class Ekopost
      */
     public function reachable(): ReachableProvider
     {
-        return new ReachableProvider($this->client, $this->apikey);
+        return new ReachableProvider($this->client, $this->apikey, $this->sandbox);
     }
 }

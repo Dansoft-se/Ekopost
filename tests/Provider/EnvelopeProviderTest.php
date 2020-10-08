@@ -18,7 +18,7 @@ class EnvelopeProviderTest extends TestCase
      */
     public function it_creates_an_envelope()
     {
-        $envelopeProvider = new EnvelopeProvider($this->createHttpClientMock($this->createJson()), 'foo');
+        $envelopeProvider = new EnvelopeProvider($this->createHttpClientMock($this->createJson()), 'foo', false);
         $envelope = $envelopeProvider->create(new Campaign(), new Envelope());
 
         $this->assertInstanceOf(Envelope::class, $envelope);

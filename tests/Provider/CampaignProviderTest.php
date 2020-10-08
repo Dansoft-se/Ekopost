@@ -18,7 +18,7 @@ class CampaignProviderTest extends TestCase
      */
     public function it_creates_a_campaign()
     {
-        $campaignProvider = new CampaignProvider($this->createHttpClientMock($this->createJson()), 'foo');
+        $campaignProvider = new CampaignProvider($this->createHttpClientMock($this->createJson()), 'foo', false);
         $campaign = $campaignProvider->create(new Campaign());
 
         $this->assertInstanceOf(Campaign::class, $campaign);
@@ -31,7 +31,7 @@ class CampaignProviderTest extends TestCase
      */
     public function it_closes_a_campaign()
     {
-        $campaignProvider = new CampaignProvider($this->createHttpClientMock($this->createJson()), 'foo');
+        $campaignProvider = new CampaignProvider($this->createHttpClientMock($this->createJson()), 'foo', false);
         $campaign = $campaignProvider->close(new Campaign());
 
         $this->assertInstanceOf(Campaign::class, $campaign);
