@@ -32,5 +32,4 @@ class CampaignProvider extends BaseProvider implements ProviderInterface
 
         return CampaignNormalizer::denormalize($result);
     }
-
 }

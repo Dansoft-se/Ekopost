@@ -26,6 +26,20 @@ class EnvelopeProviderTest extends TestCase
         $this->assertEquals('f6aa0f0a-4514-46e5-be2c-539278a58e70', $envelope->getId());
     }
 
+
+    /**
+     * @test
+     */
+    public function it_closes_an_envelope()
+    {
+        $envelopeProvider = new EnvelopeProvider($this->createHttpClientMock($this->createJson()), 'foo', false);
+        $envelope = $envelopeProvider->close(new Campaign(), new Envelope());
+
+        $this->assertInstanceOf(Envelope::class, $envelope);
+
+        $this->assertEquals('f6aa0f0a-4514-46e5-be2c-539278a58e70', $envelope->getId());
+    }
+
     /**
      * @return string
      */

@@ -21,4 +21,17 @@ class EnvelopeProvider extends BaseProvider implements ProviderInterface
 
         return EnvelopeNormalizer::denormalize($result);
     }
+
+    /**
+     * @param Campaign $campaign
+     * @param Envelope $envelope
+     *
+     * @return Envelope
+     */
+    public function close(Campaign $campaign, Envelope $envelope): Envelope
+    {
+        $result = $this->post(sprintf('campaigns/%s/envelopes/%s/close', $campaign->getId(), $envelope->getId()), []);
+
+        return EnvelopeNormalizer::denormalize($result);
+    }
 }
