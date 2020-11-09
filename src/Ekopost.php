@@ -11,7 +11,7 @@ use JGI\Ekopost\Provider\ReachableProvider;
 class Ekopost
 {
     const API_SANDBOX_URL = 'http://api.sandbox.ekopost.se/';
-    const API_URL = 'http://api.ekopost.se/';
+    const API_URL = 'https://api.ekopost.se/';
 
     /**
      * @var Client
